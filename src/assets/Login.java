@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -18,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 
-public class Login extends JPanel {
+public class Login extends JPanel implements ActionListener {
 
     private static final long serialVersionUID = 1L;
     protected static final int EXIT_ON_CLOSE = 0;
@@ -30,6 +31,7 @@ public class Login extends JPanel {
     private JButton btnLogar;
     private JLabel lblCadastrar;
     private JLabel imagemLogo;
+    private JPanel panelLogin;
 
     public Login() {
         setBackground(COR_FUNDO);
@@ -39,6 +41,17 @@ public class Login extends JPanel {
     }
 
     private void iniciarInterface() {
+
+        // CardLayout layout = new CardLayout();
+        // panelLogin.setLayout(layout);
+        // panelLogin.setSize(1920, 1080);
+
+        // panelLogin.add(login, "login");
+
+        // layout.show(panelLogin, "login");
+
+        // JPanel panelLogin = new JPanel();
+        // panelLogin.setBackground(COR_FUNDO);
 
         // titulo da tela de login
         lblTitulo = new JLabel("Faça seu Login");
@@ -71,7 +84,7 @@ public class Login extends JPanel {
         // enviar
 
         btnLogar = new JButton("Entrar");
-        // btnLogar.addActionListener(new TrocarTela(Cadastro, "vermelho"));
+        btnLogar.addActionListener(this);
 
         btnLogar.setBounds(125, 350, 75, 35);
         btnLogar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
@@ -100,6 +113,8 @@ public class Login extends JPanel {
         add(imagemFundoLogin);
         add(usuario);
         add(senha);
+        // add(panelLogin);
+
     }
 
     private JTextField estiloCampo(String placeholder, int posicaoY) {
@@ -117,8 +132,6 @@ public class Login extends JPanel {
                 BorderFactory.createEmptyBorder(8, 15, 8, 15)));
         // estilo da fonte
         campo.setFont(new Font("Tahoma", Font.BOLD, 12));
-        // cor da fonte
-        // campo.setForeground(Color.decode("7e7e7e"));
 
         // focar nos campos
         campo.addFocusListener(new FocusListener() {
@@ -139,4 +152,42 @@ public class Login extends JPanel {
 
         return campo;
     }
+
+    // acao do botao enviar
+    public void actionPerformed(ActionEvent event) {
+        if (event.getSource() == btnLogar) {
+            if (usuario.getText().equals("nelson") && (senha.getText().equals("123"))) {
+                JOptionPane.showMessageDialog(null, "Você foi logado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Dados inválidos", "Alerta", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+    }
+
+    public JTextField getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(JTextField usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @return JTextField return the senha
+     */
+    public JTextField getSenha() {
+        return senha;
+    }
+
+    /**
+     * @param senha the senha to set
+     */
+    public void setSenha(JTextField senha) {
+        this.senha = senha;
+    }
+
 }
