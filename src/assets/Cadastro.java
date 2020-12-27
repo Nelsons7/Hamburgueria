@@ -10,8 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.event.MouseInputAdapter;
-import org.w3c.dom.events.MouseEvent;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -31,7 +29,6 @@ public class Cadastro extends JPanel implements ActionListener {
     private JTextField email;
     private final Color COR_FUNDO = Color.decode("#f5ad69");
     private JButton btnSalvar;
-    private JLabel lblCadastrar;
     private JLabel imagemLogo;
 
     public Cadastro() {
@@ -54,9 +51,9 @@ public class Cadastro extends JPanel implements ActionListener {
         // email
         email = estiloCampo("email", 280);
         // senha
-        novaSenha = estiloCampo("TESTEEEE", 330);
+        novaSenha = estiloCampo("Digite sua senha", 330);
         // confirma senha
-        confirmaSenha = estiloCampo("Username", 380);
+        confirmaSenha = estiloCampo("Confirmar senha", 380);
 
         // adicionar botao
 
