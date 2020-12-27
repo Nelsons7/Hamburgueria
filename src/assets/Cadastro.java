@@ -1,21 +1,8 @@
 package assets;
 
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.FocusEvent;
+import java.awt.event.*;
 
 public class Cadastro extends JPanel implements ActionListener {
 
@@ -28,7 +15,7 @@ public class Cadastro extends JPanel implements ActionListener {
     private JTextField confirmaSenha;
     private JTextField email;
     private final Color COR_FUNDO = Color.decode("#f5ad69");
-    private JButton btnSalvar;
+    private JButton btnCadastrar;
     private JLabel imagemLogo;
 
     public Cadastro() {
@@ -39,7 +26,7 @@ public class Cadastro extends JPanel implements ActionListener {
     }
 
     private void iniciarInterface() {
-
+        // Label Novo cadastro
         lblTitulo = new JLabel("Novo cadastro");
         lblTitulo.setBounds(70, 170, 260, 33);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 27));
@@ -49,37 +36,35 @@ public class Cadastro extends JPanel implements ActionListener {
         // usuario
         usuario = estiloCampo("Usuário", 230);
         // email
-        email = estiloCampo("email", 280);
+        email = estiloCampo("Email", 280);
         // senha
         novaSenha = estiloCampo("Digite sua senha", 330);
         // confirma senha
-        confirmaSenha = estiloCampo("Confirmar senha", 380);
+        confirmaSenha = estiloCampo("Confirme sua senha", 380);
 
-        // adicionar botao
+        // Botao Cadastrar
+        btnCadastrar = new JButton("Cadastrar");
+        btnCadastrar.addActionListener(this);
 
-        btnSalvar = new JButton("Cadastrar");
-        btnSalvar.addActionListener(this);
-
-        btnSalvar.setBounds(110, 430, 100, 35);
-        btnSalvar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
+        btnCadastrar.setBounds(110, 430, 100, 35);
+        btnCadastrar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
                 BorderFactory.createEmptyBorder(8, 15, 8, 15)));
-        btnSalvar.setBackground(Color.decode("#eb8d3b"));
-        btnSalvar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnCadastrar.setBackground(Color.decode("#eb8d3b"));
+        btnCadastrar.setFont(new Font("Arial", Font.BOLD, 14));
 
-        // imagem da logo
-
+        // Imagem da logo
         imagemLogo = new JLabel();
         ImageIcon logo = new ImageIcon(this.getClass().getResource("../imagens/logo3.png"));
         imagemLogo.setIcon(logo);
         imagemLogo.setBounds(30, 0, 300, 170);
 
-        // define a imagem de fundo da tela login
+        // Define a imagem de fundo da tela login
         imagemFundoLogin = new JLabel("");
         ImageIcon fundoLogin = new ImageIcon(this.getClass().getResource("../imagens/hamburguer.jpg"));
         imagemFundoLogin.setIcon(fundoLogin);
         imagemFundoLogin.setBounds(340, 0, 940, 528);
 
-        // adcionar na tela
+        // Adcionar na tela
 
         add(imagemLogo);
         add(imagemFundoLogin);
@@ -88,7 +73,7 @@ public class Cadastro extends JPanel implements ActionListener {
         add(novaSenha);
         add(confirmaSenha);
         add(lblTitulo);
-        add(btnSalvar);
+        add(btnCadastrar);
     }
 
     private JTextField estiloCampo(String placeholder, int posicaoY) {
@@ -106,8 +91,6 @@ public class Cadastro extends JPanel implements ActionListener {
                 BorderFactory.createEmptyBorder(8, 15, 8, 15)));
         // estilo da fonte
         campo.setFont(new Font("Tahoma", Font.BOLD, 12));
-        // cor da fonte
-        // campo.setForeground(Color.decode("7e7e7e"));
 
         // focar nos campos
         campo.addFocusListener(new FocusListener() {
@@ -129,16 +112,23 @@ public class Cadastro extends JPanel implements ActionListener {
         return campo;
     }
 
-    // acao do botao salvar
+    // acao do botao Cadastrar
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource() == btnSalvar) {
+        if (event.getSource() == btnCadastrar) {
 
-            if (novaSenha.getText().equals(getConfirmaSenha().getText()) && !getUsuario().getText().equals("")
-                    && !getEmail().getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Você foi cadastrado com sucesso", "Sucesso",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Preencha todos os dados!", "Alerta", JOptionPane.ERROR_MESSAGE);
+            try {
+
+                if (novaSenha.getText().equals(getConfirmaSenha().getText()) && !email.getText().equals("Email")
+                        && !usuario.getText().equals("Usuário")) {
+                    JOptionPane.showMessageDialog(null, "Você foi cadastrado com sucesso", "Sucesso",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os dados!", "Alerta",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e, "Alerta", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -147,53 +137,35 @@ public class Cadastro extends JPanel implements ActionListener {
         return usuario;
     }
 
-    /**
-     * @param usuario the usuario to set
-     */
     public void setUsuario(JTextField usuario) {
         this.usuario = usuario;
     }
 
-    /**
-     * @return JTextField return the novaSenha
-     */
     public JTextField getNovaSenha() {
         return novaSenha;
     }
 
-    /**
-     * @param novaSenha the novaSenha to set
-     */
     public void setNovaSenha(JTextField novaSenha) {
         this.novaSenha = novaSenha;
     }
 
-    /**
-     * @return JTextField return the confirmaSenha
-     */
     public JTextField getConfirmaSenha() {
         return confirmaSenha;
     }
 
-    /**
-     * @param confirmaSenha the confirmaSenha to set
-     */
     public void setConfirmaSenha(JTextField confirmaSenha) {
         this.confirmaSenha = confirmaSenha;
     }
 
-    /**
-     * @return JTextField return the email
-     */
     public JTextField getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(JTextField email) {
         this.email = email;
+    }
+
+    public void setDefaultCloseOperation(int disposeOnClose) {
     }
 
 }

@@ -4,30 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.event.MouseInputListener;
-
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.sql.JDBCType;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.FocusEvent;
-
 public class Login extends JFrame {
 
     private JPanel panelLogin = new JPanel(), panelPrincipal = new JPanel();
@@ -41,28 +17,29 @@ public class Login extends JFrame {
     private JButton btnLogar;
     private JButton btnCadastrar;
     public JButton btnVoltar;
-    private JLabel lblCadastrar;
     private JLabel imagemLogo;
 
     public Login() {
-
-        super("Card Layout");
+        // Título da JFrame
+        super("Lanches Bom Burguer");
 
         lblTitulo = new JLabel("Faça seu Login");
         lblTitulo.setBounds(70, 170, 260, 33);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 27));
 
+        // Define a imagem da Logo na tela login
         imagemLogo = new JLabel();
         ImageIcon logo = new ImageIcon(this.getClass().getResource("../imagens//logo3.png"));
         imagemLogo.setIcon(logo);
         imagemLogo.setBounds(30, 0, 300, 170);
 
-        // define a imagem de fundo da tela login
+        // Define a imagem de fundo na tela login
         imagemFundoLogin = new JLabel("");
         ImageIcon fundoLogin = new ImageIcon(this.getClass().getResource("../imagens/hamburguer.jpg"));
         imagemFundoLogin.setIcon(fundoLogin);
         imagemFundoLogin.setBounds(340, 0, 940, 528);
 
+        // Botões
         btnLogar = new JButton("Entrar");
         btnLogar.setBounds(125, 350, 75, 35);
         btnLogar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
@@ -81,11 +58,11 @@ public class Login extends JFrame {
         btnVoltar.setBounds(0, 0, 50, 35);
         btnVoltar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
                 BorderFactory.createEmptyBorder(4, 3, 7, 3)));
-        btnVoltar.setBackground(Color.decode("#a8302c"));
+        btnVoltar.setBackground(Color.decode("#eb8d3b"));
         btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
 
         // usuario
-        usuario = estiloCampo("Username", 230);
+        usuario = estiloCampo("Usuário", 230);
 
         // senha
         senha = estiloCampo("Senha", 290);
@@ -100,10 +77,12 @@ public class Login extends JFrame {
         acaoCadastrar acaoCadastrar = new acaoCadastrar();
         acaoVoltar acaoVoltar = new acaoVoltar();
 
+        // Ações dos botões
         btnLogar.addActionListener(acaoLogar);
         btnCadastrar.addActionListener(acaoCadastrar);
         btnVoltar.addActionListener(acaoVoltar);
 
+        // Adicionando panelLogin
         panelLogin.setLayout(null);
         panelLogin.setBackground(COR_FUNDO);
         panelLogin.add(lblTitulo);
@@ -114,8 +93,11 @@ public class Login extends JFrame {
         panelLogin.add(senha);
         panelLogin.add(btnCadastrar);
 
-        // add na tela cadastro
+        // Add na tela cadastro
         cadastro.add(btnVoltar);
+
+        // add na tela dashboard
+        dashboard.add(btnVoltar);
 
         panelPrincipal.setLayout(cardLayout);
 
@@ -146,7 +128,6 @@ public class Login extends JFrame {
 
         // focar nos campos
         campo.addFocusListener(new FocusListener() {
-            @Override
             public void focusGained(FocusEvent e) {
                 if (campo.getText().equals(placeholder)) {
                     campo.setText("");
@@ -164,10 +145,12 @@ public class Login extends JFrame {
         return campo;
     }
 
+    // Ação dos botões
     public class acaoLogin implements ActionListener {
         public void actionPerformed(ActionEvent event) {
 
-            if (usuario.getText().equals("nelson") && (senha.getText().equals("123"))) {
+            if (usuario.getText().equals("nelson")
+                    || (usuario.getText().equals("rodrigo")) && (senha.getText().equals("123"))) {
                 JOptionPane.showMessageDialog(null, "Você foi logado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 cardLayout.show(panelPrincipal, "dashboard");
             } else {
@@ -182,7 +165,8 @@ public class Login extends JFrame {
         public void actionPerformed(ActionEvent event) {
             JButton voltar = (JButton) event.getSource();
             if (voltar.equals(btnVoltar))
-                cardLayout.show(panelPrincipal, "login");
+
+                cardLayout.show(panelPrincipal, "panelLogin");
 
         }
     }
@@ -196,29 +180,20 @@ public class Login extends JFrame {
         }
     }
 
-    // gets e sets
+    // Getters e Setters
 
     public JTextField getUsuario() {
         return usuario;
     }
 
-    /**
-     * @param usuario the usuario to set
-     */
     public void setUsuario(JTextField usuario) {
         this.usuario = usuario;
     }
 
-    /**
-     * @return JTextField return the senha
-     */
     public JTextField getSenha() {
         return senha;
     }
 
-    /**
-     * @param senha the senha to set
-     */
     public void setSenha(JTextField senha) {
         this.senha = senha;
     }
