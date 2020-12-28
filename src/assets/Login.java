@@ -16,7 +16,8 @@ public class Login extends JFrame {
     private final Color COR_FUNDO = Color.decode("#f5ad69");
     private JButton btnLogar;
     private JButton btnCadastrar;
-    public JButton btnVoltar;
+    public JButton btnVoltarCadastro;
+    private JButton btnVoltarDashboard;
     private JLabel imagemLogo;
 
     public Login() {
@@ -54,12 +55,19 @@ public class Login extends JFrame {
         btnCadastrar.setBackground(COR_FUNDO);
         btnCadastrar.setFont(new Font("Arial", Font.BOLD, 14));
 
-        btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(0, 0, 50, 35);
-        btnVoltar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
+        btnVoltarCadastro = new JButton("Voltar");
+        btnVoltarCadastro.setBounds(0, 0, 50, 35);
+        btnVoltarCadastro.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
                 BorderFactory.createEmptyBorder(4, 3, 7, 3)));
-        btnVoltar.setBackground(Color.decode("#eb8d3b"));
-        btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnVoltarCadastro.setBackground(Color.decode("#eb8d3b"));
+        btnVoltarCadastro.setFont(new Font("Arial", Font.BOLD, 14));
+
+        btnVoltarDashboard = new JButton("Voltar");
+        btnVoltarDashboard.setBounds(1017, 0, 50, 35);
+        btnVoltarDashboard.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
+                BorderFactory.createEmptyBorder(4, 3, 7, 3)));
+        btnVoltarDashboard.setBackground(Color.decode("#eb8d3b"));
+        btnVoltarDashboard.setFont(new Font("Arial", Font.BOLD, 14));
 
         // usuario
         usuario = estiloCampo("Usuário", 230);
@@ -75,12 +83,14 @@ public class Login extends JFrame {
 
         acaoLogin acaoLogar = new acaoLogin();
         acaoCadastrar acaoCadastrar = new acaoCadastrar();
-        acaoVoltar acaoVoltar = new acaoVoltar();
+        acaoVoltarCadastro acaoVoltarCadastro = new acaoVoltarCadastro();
+        acaoVoltarDashboard acaVoltarDashboard = new acaoVoltarDashboard();
 
         // Ações dos botões
         btnLogar.addActionListener(acaoLogar);
         btnCadastrar.addActionListener(acaoCadastrar);
-        btnVoltar.addActionListener(acaoVoltar);
+        btnVoltarCadastro.addActionListener(acaoVoltarCadastro);
+        btnVoltarDashboard.addActionListener(acaVoltarDashboard);
 
         // Adicionando panelLogin
         panelLogin.setLayout(null);
@@ -94,10 +104,10 @@ public class Login extends JFrame {
         panelLogin.add(btnCadastrar);
 
         // Add na tela cadastro
-        cadastro.add(btnVoltar);
+        cadastro.add(btnVoltarCadastro);
 
         // add na tela dashboard
-        dashboard.add(btnVoltar);
+        dashboard.add(btnVoltarDashboard);
 
         panelPrincipal.setLayout(cardLayout);
 
@@ -161,10 +171,20 @@ public class Login extends JFrame {
         }
     }
 
-    public class acaoVoltar implements ActionListener {
+    public class acaoVoltarCadastro implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             JButton voltar = (JButton) event.getSource();
-            if (voltar.equals(btnVoltar))
+            if (voltar.equals(btnVoltarCadastro))
+
+                cardLayout.show(panelPrincipal, "panelLogin");
+
+        }
+    }
+
+    public class acaoVoltarDashboard implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            JButton voltar = (JButton) event.getSource();
+            if (voltar.equals(btnVoltarDashboard))
 
                 cardLayout.show(panelPrincipal, "panelLogin");
 
